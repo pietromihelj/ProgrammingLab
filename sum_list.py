@@ -1,9 +1,10 @@
 
 def sum_list(my_list):
-    somma = 0
-    for item in my_list:
-        somma = somma + item
-    return somma
+    if not my_list:
+        return None
+        
+    a = sum(my_list)
+    return a
 
 
 
