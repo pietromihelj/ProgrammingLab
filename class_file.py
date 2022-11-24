@@ -2,8 +2,8 @@ class CSVFile():
     def __init__(self,name):
         self.name = name
         try: 
-            opne(self.name,'r')
-        except NameError:
+            open(self.name,'r')
+        except:
             print('Errore')
 
     def get_data(self):
@@ -27,7 +27,9 @@ class CSVFile():
             
 
         return data
-            
+
+
+
 
                 
 
