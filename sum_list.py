@@ -5,6 +5,7 @@ def sum_list(my_list):
         
     a = sum(my_list)
     return a
+    
 
 
 
