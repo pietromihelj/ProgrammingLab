@@ -28,7 +28,26 @@ class CSVFile():
 
         return data
 
+class NumericalCSVFile(CSVFile):
 
+    def get_data(self):
+        data_list = []
+        numerical_data = []
+        data_list = super().get_data()
+        for item in data_list:
+            try:
+                numerical_data.append(float(item[1]))
+
+            except ValueError:
+                print('Errore')
+            except TypeError:
+                print('Errore')
+        return numerical_data
+                    
+        
+
+file = NumericalCSVFile('shampoo_sales.csv')
+print(file.get_data())
 
 
                 
