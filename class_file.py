@@ -14,7 +14,7 @@ class CSVFile():
         
         for line in my_file:
             elements = line.split(',')
-            if row != 0 and elements[0] != None and elements[1] != None:
+            if row != 0:
                 data.append(elements)
                 vuoto = False
             else:
@@ -31,23 +31,33 @@ class CSVFile():
 class NumericalCSVFile(CSVFile):
 
     def get_data(self):
-        data_list = []
-        numerical_data = []
         data_list = super().get_data()
+        numerical_data = []
+        tutto_ok = True
+       
+        
         for item in data_list:
-            try:
-                numerical_data.append(float(item[1]))
+            numerical_row = []
+            
+            for i in range(len(item)):
+                
+                if i==0:
+                   numerical_row.append(item[i])
+                else:
+                    try:
+                        numerical_row.append(float(item[i]))
+                    except Exception as e:
+                        print('Errore, il valore"{}", ha creato un errore di tipo:"{}"'.format(item[i],e))
+                        tutto_ok = False
+                        
 
-            except ValueError:
-                print('Errore')
-            except TypeError:
-                print('Errore')
+            if tutto_ok:
+                numerical_data.append(numerical_row)
+                        
         return numerical_data
                     
         
 
-file = NumericalCSVFile('shampoo_sales.csv')
-print(file.get_data())
 
 
                 
