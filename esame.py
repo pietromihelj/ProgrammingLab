@@ -13,7 +13,7 @@ class CSVTimeSeriesFile():
         try:
             my_file = open(self.name, 'r')
             my_file.readline()
-        except Exception:
+        except:
             raise ExamException('Errore, file inesistente o illegibile')
         #estrazione dei dati e trasformazione del file in una lista di liste dove ogni sottolista rappresenta una riga del file
         row_data = []
@@ -42,11 +42,12 @@ class CSVTimeSeriesFile():
                         if last_epoch is None:
                             last_epoch = item[i]
                         else:
-                            if item[i] <= last_epoch:
+                            if last_epoch >= item[i]:
                                 raise ExamException('Errore, lista non ordinata o con duplicati')
                             else:
                                 #aggiunta dell'epoch alla sottolista
                                 numerical_element.append(int(item[i]))
+                                last_epoch = item[i]
                     #aggiunta della temperatura alla sottolista
                     else:
                         
@@ -113,7 +114,3 @@ def compute_daily_max_difference(dataset):
     if day_count == 1:
         diff_temp.append(tmax-tmin)
     return diff_temp
-
-
-
-
