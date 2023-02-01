@@ -32,6 +32,10 @@ class CSVTimeSeriesFile():
                 #controllo se l'elemento è un numero
                 isnumber = True
                 try:
+                    if item[i] is True:
+                        isnumber = False
+                    if item[i] is False:
+                        isnumber = False
                     item[i] = float(item[i])
                 except:
                     isnumber = False
@@ -79,6 +83,26 @@ def compute_daily_max_difference(dataset):
     tmp_count = 1
     day_count = 1
     
+    #controllo che la lista dataci sia corretta
+    controll_dataset = dataset
+    for item in controll_dataset:
+        #controllo che la lista sia riempita con sottoliste corrette
+        if len(item) != 2:
+            raise ExamException('Errore, la lista inserita non è corretta')
+        else:
+            for i in range(len(item)):
+                isnumber = True
+                try:
+                    if item[i] is True:
+                        isnumber = False
+                    if item[i] is False:
+                        isnumber = False
+                    item[i] = float(item[i])
+                except:
+                    isnumber = False
+            if not isnumber:
+                raise ExamException('Errore, valori non numerici nella lista')
+    
     for item in dataset:
         #se è la prima temperatutra inizializzo la prima temperatura del primo giorno
         if day_start == None:
@@ -114,3 +138,4 @@ def compute_daily_max_difference(dataset):
     if day_count == 1:
         diff_temp.append(tmax-tmin)
     return diff_temp
+
