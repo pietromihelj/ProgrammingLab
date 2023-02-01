@@ -1,3 +1,2 @@
-a = True
-if a is False:
-    print(a)
+a = 1551484800
+print(a/86400)

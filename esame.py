@@ -81,11 +81,19 @@ def compute_daily_max_difference(dataset):
     tmin = None
     day_start = None
     tmp_count = 1
-    day_count = 1
+    if isinstance(dataset,list):
+        controll_dataset1 = dataset
+        for item in controll_dataset1:
+            if isinstance(item,list):
+                pass
+            else:
+                raise ExamException('Errore, la lista non ha sottoliste corrette')
+    else:
+        raise ExamException('Errore, il dataset non è una lista')
     
     #controllo che la lista dataci sia corretta
-    controll_dataset = dataset
-    for item in controll_dataset:
+    controll_dataset2 = dataset
+    for item in controll_dataset2:
         #controllo che la lista sia riempita con sottoliste corrette
         if len(item) != 2:
             raise ExamException('Errore, la lista inserita non è corretta')
@@ -113,7 +121,6 @@ def compute_daily_max_difference(dataset):
         else:
             #controllo se la temperatura appartiene al giorno corrente
             if int(item[0] / 86400) == day_start:
-                
                 #se è cosi controllo se questa possa essere la minima o la massima e nel caso sostituisco
                 if item[1] < tmin:
                     tmin = item[1]
@@ -124,7 +131,6 @@ def compute_daily_max_difference(dataset):
             else: 
                 #se la temperatura non appartiene al giorno corrente aggiorno il giorno
                 day_start = int(item[0] / 86400)
-                day_count = day_count + 1
                 #controllo quanti rilevamenti ci sono stati, se è 1 solo aggiungo None alla lista delle differenze di temperatura se sono più di uno aggiungo la differenza massima
                 if tmp_count == 1:
                     diff_temp.append(None)
@@ -135,7 +141,8 @@ def compute_daily_max_difference(dataset):
                 tmax = item[1]
                 tmin = item[1]
     
-    if day_count == 1:
+    if tmp_count != 1:
         diff_temp.append(tmax-tmin)
     return diff_temp
+
 
