@@ -81,6 +81,7 @@ def compute_daily_max_difference(dataset):
     tmin = None
     day_start = None
     tmp_count = 1
+    #controllo che il dataset sia una lista di liste
     if isinstance(dataset,list):
         controll_dataset1 = dataset
         for item in controll_dataset1:
@@ -140,9 +141,7 @@ def compute_daily_max_difference(dataset):
                 tmp_count = 1
                 tmax = item[1]
                 tmin = item[1]
-    
+    #poiche faccio il calcolo della diff di temp quando cambia il giorno questa parte permette di calcolare la diff dell'ultimo giorno o se c'è un giorno solo
     if tmp_count != 1:
         diff_temp.append(tmax-tmin)
     return diff_temp
-
-
